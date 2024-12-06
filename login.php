@@ -3,8 +3,9 @@ session_start();
 include "log1.php"; // Database connection
 
 // Retrieve login form data
-$email = trim($_POST['[Contact Number]']);
-$password = $_POST['[Password]'];
+$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
+
 
 // Validate input
 if (empty($email) || empty($password)) {
@@ -28,13 +29,13 @@ try {
             $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
             // Manually compare the entered password with the database password
-            if ($password === $row['[Password]']) {
+            if ($password === $row['Password']) {
                 // Successful login
                 session_regenerate_id(true); // Secure the session
 
                 // Store user details in the session
-                $_SESSION['user_id'] = $row['[Patient ID]']; // Patient ID
-                $_SESSION['name'] = $row['[Name]'];         // Name
+                $_SESSION['user_id'] = $row['Patient ID']; // Patient ID
+                $_SESSION['name'] = $row['Name'];         // Name
 
                 // Redirect to the dashboard
                 header("Location: PatientD.php");
