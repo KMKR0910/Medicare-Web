@@ -3,8 +3,8 @@ session_start();
 include "log1.php"; // Database connection
 
 // Retrieve login form data
-$email = trim($_POST['email']);
-$password = $_POST['password'];
+$email = trim($_POST['[Contact Number]']);
+$password = $_POST['[Password]'];
 
 // Validate input
 if (empty($email) || empty($password)) {
@@ -14,7 +14,7 @@ if (empty($email) || empty($password)) {
 
 try {
     // SQL query to fetch user details based on the provided email
-    $sql = "SELECT PatientId, name, password FROM patientSign WHERE email = ?";
+    $sql = "SELECT * FROM [tbl_patient_info] WHERE [Contact Number] = ?";
     $stmt = sqlsrv_prepare($conn, $sql, array($email));
 
     if (!$stmt) {
@@ -28,24 +28,24 @@ try {
             $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 
             // Manually compare the entered password with the database password
-            if ($password === $row['password']) {
+            if ($password === $row['[Password]']) {
                 // Successful login
                 session_regenerate_id(true); // Secure the session
 
                 // Store user details in the session
-                $_SESSION['user_id'] = $row['PatientId']; // Patient ID
-                $_SESSION['name'] = $row['name'];         // Name
+                $_SESSION['user_id'] = $row['[Patient ID]']; // Patient ID
+                $_SESSION['name'] = $row['[Name]'];         // Name
 
                 // Redirect to the dashboard
                 header("Location: PatientD.php");
                 exit();
             } else {
                 // Incorrect password
-                echo "Invalid email or password!";
+                echo "Invalid Contact Number or Password!";
             }
         } else {
             // Email not found
-            echo "Invalid email or password!";
+            echo "Invalid Contact Number or Password!";
         }
     } else {
         throw new Exception("Failed to execute SQL statement: " . print_r(sqlsrv_errors(), true));
