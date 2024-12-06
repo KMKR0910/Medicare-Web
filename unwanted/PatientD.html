@@ -1,0 +1,135 @@
+<?php
+session_start(); // Start the session
+
+// Check if the user is logged in
+if (isset($_SESSION['name'])) {
+    $userName = $_SESSION['name'];
+} else {
+    $userName = "Guest"; // Default if not logged in
+}
+?>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="slog2.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    </head>
+        <body>
+            <div class="sidebar">
+                <div class="logo">
+                    <ul class="menu">
+                        <li class="active">
+                            <a href="1">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile.php">
+                                <i class="fas fa-user-alt"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dashboardP2.html">
+                                <i class="fas fa-user-alt"></i>
+                                <span>Activity</span>
+                            </a>
+                            
+                        </li>
+                        <li class="logout">
+                            <a href="1">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Log Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="main--content">
+                <div class="header--wrapper">
+                    <div class="header--title">
+                        <span>Primary</span>
+                        <h2>Dashboard</h2>
+                        <h3><?php echo htmlspecialchars($userName); ?>!</h3>
+                    </div>
+
+                  
+                </div>
+                <div class="fieldset1">
+                <fieldset class="b1">
+                    <div class="booking">
+                        <h3  >Book your Appointment!</h3>
+                        <img src="doc.jpg" class="app" alt="Appointment"><br>
+                       <h3> <a href="book21.html" class="b11">Book Appointment</a></h3>
+                    </div>
+                </fieldset><br><br>
+                  <fieldset class="b2">
+                        <div class="booking2">
+                            <h3  >Edit your Appointment!</h3>
+                            <img src="doc.jpg" class="app" alt="Appointment"><br>
+                            <h3> <a href="dashboardP3.html" class="b11">Edit Appointment</a></h3>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="b2">
+                        <div class="booking">
+                            <h3 >Delete your Appointment!</h3>
+                            <img src="doc.jpg" class="app" alt="Appointment"><br>
+                            <h3> <a href="book21.html" class="b11">Delete Appointment</a></h3>
+                        </div>
+                    </fieldset>
+                </div>
+            </style>
+        </head>
+        <body>
+        
+        <fieldset class="confirm">
+        <h1 class="head">Appointment Information</h1>
+        <div id="message"></div>
+        <div id="details"></div>
+        </fieldset>
+        
+        <script>
+        // Function to get query parameter from URL
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // Get appointment details and display them
+        const appNum = getQueryParameter('app_num');
+        const patientName = getQueryParameter('patient_name');
+        const conta = getQueryParameter('conta');
+        const appDate = getQueryParameter('app_date');
+        const appTime = getQueryParameter('app_time');
+        
+        if (appNum) {
+            document.getElementById('message').textContent = "Your appointment number is: " + appNum;
+        }
+        
+        if (patientName && conta && appDate && appTime) {
+            document.getElementById('details').innerHTML = `
+                <p><strong>Patient Name:</strong> ${patientName}</p>
+                <p><strong>Contact Number:</strong> ${conta}</p>
+                <p><strong>Appointment Date:</strong> ${appDate}</p>
+                <p><strong>Appointment Time:</strong> ${appTime}</p>
+            `;
+        }
+        
+        // Get error message if present
+        const errorMessage = getQueryParameter('error_message');
+        if (errorMessage) {
+            document.getElementById('message').textContent = errorMessage;
+        }
+        </script>
+            </div>
+           
+
+
+        </body>
+
+
+ </html>

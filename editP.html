@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Drug Order</title>
+    <link rel="stylesheet" type="text/css" href="top.css">
+    <link rel="stylesheet" type="text/css" href="footer.css">
+    <link rel="stylesheet" type="text/css" href="AppBK.css">
+    <link rel="stylesheet" type="text/css" href="bookingimg.css"> 
+    <script type="text/javascript" src="book21.js" defer></script>
+
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #00796b;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 15px;
+            width: 28%;
+        }
+
+        .button:hover {
+            background-color: #004d40;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main>
+        <div class="container">
+            <fieldset>
+                <h1>Edit Drug Order</h1>
+                <form id="editOrderForm" method="post" action="editOrder.php">
+                    <label for="orderID">Select Order ID</label>
+                    <select id="orderID" name="Order_ID" required>
+                        <option value="">-- Select Order --</option>
+                        <?php
+session_start();
+include "log1.php";
+
+if (isset($_SESSION['Supplier_ID'])) {
+    $supplierID = $_SESSION['Supplier_ID'];
+    
+    $sql = "SELECT Item_ID FROM DrugOrderItem WHERE Supplier_ID = ?";
+    $params = array($supplierID);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    if ($stmt) {
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            echo "<option value='" . $row['Item_ID'] . "'>" . $row['Item_ID'] . "</option>";
+        }
+    } else {
+        echo "<option value=''>Error loading orders</option>";
+    }
+
+    sqlsrv_free_stmt($stmt);
+} else {
+    echo "<option value=''>No Supplier Logged In</option>";
+}
+
+sqlsrv_close($conn);
+?>
+
+                        <!-- Options to be dynamically populated with PHP -->
+                    </select><br><br>
+
+                    <label for="drugName">Drug Name</label>
+                    <input type="text" id="drugName" name="Drug_Name" required><br><br>
+
+                    <label for="packSize">Pack Size</label>
+                    <input type="text" id="packSize" name="Pack_Size" required><br><br>
+
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="Quantity" min="1" required><br><br>
+
+                    <button type="submit" class="button">Update Order</button><br><br>
+                </form>
+
+                
+            </fieldset>
+
+            <div class="image-section">
+                <img src="h1.jpg" alt="Medical Images" class="img1">
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section links">
+                <h3>Our socials</h3>        
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-linkedin"></i></a><br>
+            </div>
+            <div class="footer-section address">
+                <h3>Our Address</h3>
+                <p>Kurusa Road<br>Panadura, Sri Lanka</p>
+            </div>
+            <div class="footer-section map">
+                <h3>Our Location</h3>
+                <iframe
+                    src="https://www.google.com/maps/embed?..."
+                    width="100%" height="200" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+        </div>
+        <p>Copyright &copy;2024; Designed by xxxx</p>
+    </footer>
+</body>
+</html>

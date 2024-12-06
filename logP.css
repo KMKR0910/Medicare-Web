@@ -1,0 +1,94 @@
+fieldset {
+    width: 40%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(176, 212, 212, 0.8); /* Adjusted for transparency */
+    border-radius: 35px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    position: absolute; /* Keep this */
+    top: 0; /* Adjust top position as needed */
+    left: 50%; /* Center horizontally */
+     z-index: 1; /* Ensures fieldset is on top of the image */
+   margin-top: 10%;
+   left: calc(50% - 43%); 
+  
+
+    /* From https://css.glass */
+
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+   
+   
+}
+body{
+    background: #a9c5e282;
+}
+input[type="date"] { /* Styles for the date input */  
+    width: 100%;  
+    margin-bottom: 15px;  
+    border-radius: 5px;  
+    border: 1px solid #ccc;  
+    padding: 1%;  
+    background: #f9f9f9; /* Optional: Change to suit theme */  
+    cursor: pointer; /* Change cursor to a pointer on hover */  
+}  
+
+input[type="text"], input[type="button"],input[type="submit"],input[type="password"]
+ {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 1%;
+}
+input[type="button"] {
+    cursor: pointer;
+    background:linear-gradient(45deg,#00E5FF,#006ee6); /* Optional: Adjust this for your header's background */
+     border: none;
+    padding: 10px;
+    width: 60%;
+   margin-left: 20%;
+}
+input[type="submit"]
+{
+    cursor: pointer;
+    background: linear-gradient(45deg,rgb(243, 234, 78), rgb(86, 218, 104));  
+    color:black;
+    border: none;
+    padding: 10px;
+    width: 60%;
+    margin-left: 20%;
+    
+}
+ 
+p.or
+{
+    color: rgb(21, 13, 13);
+    display: flex;
+    justify-content: center;
+ 
+    margin-top: 1%;
+
+}
+.container {
+    position: relative; /* This allows absolute positioning of child elements */
+    width: fit-content;
+    max-width: 100%; /* Ensures responsiveness */
+}
+
+.appointment-image {
+    width: 100%; /* Make the image width match the container */
+    height: 80vh; /* Maintain aspect ratio */
+    display: block;
+    z-index: 0; 
+    margin-top: 5%;/* Image stays behind the fieldset */
+}
+.Welcome {
+    text-align: center;  /* Center the text */
+    font-size: 1.5em;    /* Increase font size */
+    margin-bottom: 15px; /* Add some space below */
+}

@@ -1,0 +1,55 @@
+<?php
+session_start(); // Start the session
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-image">
+            <h1><?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'Guest'; ?></h1>
+            <p>Web Developer</p>
+        </div>
+        <div class="profile-body">
+            <h2>Profile Information</h2>
+            <ul>
+                <li><i class="fas fa-envelope"></i> <?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'No Email'; ?></li>
+                <li><i class="fas fa-phone"></i> <?php echo isset($_SESSION['contact']) ? $_SESSION['contact'] : 'No Contact'; ?></li>
+                <li><i class="fas fa-map-marker-alt"></i> New York, USA</li>
+            </ul>
+            <button class="edit-btn">Edit Profile</button>
+
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+
+            <div class="skills-section">
+                <h2>Skills</h2>
+                <div class="progress-bar">
+                    <div class="progress progress-80"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress progress-70"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress progress-90"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

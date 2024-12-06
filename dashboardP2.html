@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    
+    <!-- External CSS files -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboardP2.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <ul class="menu">
+                <li class="active">
+                    <a href="dashboardP.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.php">
+                        <i class="fas fa-user-alt"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="dashboardP2.html">
+                        <i class="fas fa-user-alt"></i>
+                        <span>Activity</span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a href="1">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Log Out</span>
+                    </a> 
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span>Primary</span>
+                <h2>Dashboard</h2>
+                <h3>Name</h3>
+            </div>
+        </div>
+
+        <!-- Appointment Information Section -->
+        <fieldset class="confirm">
+            <h1 class="head">Appointment Information</h1>
+            <div id="message"></div>
+            <div id="details"></div>
+        </fieldset>
+    </div>
+
+    <!-- Script to handle appointment details -->
+    <script>
+        // Function to get query parameter from URL
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // Get appointment details and display them
+        const appNum = getQueryParameter('app_num');
+        const patientName = getQueryParameter('patient_name');
+        const conta = getQueryParameter('conta');
+        const appDate = getQueryParameter('app_date');
+        const appTime = getQueryParameter('app_time');
+        
+        if (appNum) {
+            document.getElementById('message').textContent = "Your appointment number is: " + appNum;
+        }
+        
+        if (patientName && conta && appDate && appTime) {
+            document.getElementById('details').innerHTML = `
+                <p><strong>Patient Name:</strong> ${patientName}</p>
+                <p><strong>Contact Number:</strong> ${conta}</p>
+                <p><strong>Appointment Date:</strong> ${appDate}</p>
+                <p><strong>Appointment Time:</strong> ${appTime}</p>
+            `;
+        }
+        
+        // Get error message if present
+        const errorMessage = getQueryParameter('error_message');
+        if (errorMessage) {
+            document.getElementById('message').textContent = errorMessage;
+        }
+    </script>
+</body>
+</html>

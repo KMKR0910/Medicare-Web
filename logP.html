@@ -1,0 +1,46 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="logP1.css">
+     <script type="text/javascript" src="signins.js" defer></script>
+    </script>
+<title>Sign in as Patient</title>
+</head>
+
+<body>
+     
+      <div class="container"></div>
+    <img src="doc1.jpg" alt="Medical Image" class="appointment-image">
+</div>
+  <fieldset class="login">
+   <p><b class="Welcome">Welcome !</b><br>Please enter your details. </p> 
+   <form name="myform" onsubmit="return ValidateForm()" method="post" action="log2.php"   >
+    <input type="text" placeholder=" Enter Name" name="name"><br>
+    <input type="text" placeholder=" Enter Address" name="address"><br>
+    <input type="date" placeholder=" Enter Date of Birth" name="DOB"><br>
+      
+     <select id="gender" name="gender" class="gdr">
+      <option value="" disabled selected>Select Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <input type="text" placeholder=" Enter Moblie No" name="Cno"><br>
+    <input type="text" placeholder=" Enter Email" name="email"><br>
+   
+
+
+
+
+        <input type="password" placeholder="Enter Password" name="password"  >
+    
+        <input type="submit" value="Sign-In" name="save"><br>
+        <p class="or">or</p>
+        <a href="login.html">
+            <input type="button" value="Login-In" class="log">
+        </a>
+         </form>
+  
+
+
+  </fieldset>
+</body>
+</html>

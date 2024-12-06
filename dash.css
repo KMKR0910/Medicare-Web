@@ -1,0 +1,49 @@
+ 
+
+
+/*this is start of the fiedset or the amin body*/
+
+.fieldset1
+{
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    margin-left: 100px;
+    
+   
+}
+.b1
+{
+
+    width: 40%;
+    background-color: rgba(221, 160, 221, 0.503);
+margin-right: 60px;
+border: 1px solid rgba(200, 200, 200, 0.5);
+border-radius: 20px;
+
+
+}
+.b2
+{
+    width: 50%;
+    background-color: rgba(221, 160, 221, 0.503);
+margin-right: 60px;
+border-radius: 20px;
+}
+
+.confirm
+{
+    background-color: rgb(202, 176, 227);
+    color: black;
+    font-size: larger;
+    margin: 1px;
+    margin-top: 1px;
+    border-radius: 15px;
+    text-align: center;
+    width: 50%;
+    height: 30%;
+
+}
+ 

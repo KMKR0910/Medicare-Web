@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0; /* 'none' is not a valid value for padding */
+    border: none; 
+    outline: none;
+    box-sizing: border-box;
+
+   
+}
+body
+{
+    background-color: antiquewhite;
+}

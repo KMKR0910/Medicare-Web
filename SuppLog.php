@@ -1,0 +1,38 @@
+<?php
+session_start();
+include "log1.php"; // Ensure this file sets up your MS SQL Server connection
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve form data
+    $email = $_POST['Email_Address'];
+    $password = $_POST['Password'];
+
+    // Prepare the SELECT query to check login credentials
+    $sql = "SELECT Supplier_ID, Fname FROM DrugSupplier WHERE Email_Address = ? AND Password = ?";
+    $params = array($email, $password);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    // Check if a matching record is found
+    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        // Save supplier details to the session
+        $_SESSION['Fname'] = $row['Fname'];
+        $_SESSION['Supplier_ID'] = $row['Supplier_ID'];
+
+        // Redirect to the relevant dashboard
+        header("Location: dashboardS.php");
+        exit();
+    } else {
+        // Display an error message if login fails
+        echo "Invalid email or password. Please try again.";
+    }
+
+    // Close the connection
+    sqlsrv_close($conn);
+} else {
+    echo "Invalid request method.";
+}
+?>

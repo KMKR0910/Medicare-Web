@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #eef2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(to right, #ffafbd, #ffc3a0);
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.profile-card {
+    background-color: #fff;
+    width: 400px;
+    border-radius: 20px;
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    padding: 30px;
+    color: white;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.profile-header:hover {
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+}
+
+.profile-image {
+    border-radius: 50%;
+    border: 6px solid white;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease;
+}
+
+.profile-image:hover {
+    transform: rotate(360deg);
+}
+
+h1, p {
+    margin: 10px 0;
+    transition: color 0.3s ease;
+}
+
+h1:hover {
+    color: #ff4b2b;
+}
+
+.profile-body {
+    padding: 30px;
+}
+
+.profile-body h2 {
+    margin-bottom: 10px;
+    color: #ff4b2b;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.profile-body ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-body ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.profile-body ul li i {
+    margin-right: 10px;
+    color: #ff4b2b;
+    font-size: 1.2rem;
+}
+
+.edit-btn {
+    background-color: #ff4b2b;
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #ffafbd;
+    transform: scale(1.1);
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    text-decoration: none;
+    margin: 0 10px;
+    color: #ff4b2b;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #ffc3a0;
+}
+
+.skills-section {
+    margin-top: 30px;
+}
+
+.skills-section h2 {
+    font-size: 1.4rem;
+    color: #ff4b2b;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress {
+    background-color: #ff4b2b;
+    height: 12px;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+.progress-80 {
+    width: 80%;
+}
+
+.progress-70 {
+    width: 70%;
+}
+
+.progress-90 {
+    width: 90%;
+}

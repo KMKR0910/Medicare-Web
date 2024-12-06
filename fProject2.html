@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Athula Chandrasiri Medical Centre - Drug Supplier Registration</title>
+    <script type="text/javascript" src="logS.js" defer></script>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(140deg, #737DFE, #FFCAC9);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 500px;
+        }
+
+        textarea {
+            resize: none;
+            width: 500px;
+        }
+
+        .form-sections {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .personal-details, .company-details {
+            flex: 1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            backdrop-filter: blur(30px);
+        }
+
+        .company-details {
+            margin-top: 30px;
+            width: 50%;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4887f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #356ac9;
+        }
+
+        .login-redirect {
+            text-align: center;
+            margin-top: 1px;
+            padding: 10px;
+        }
+
+        .login-redirect a {
+            text-decoration: none;
+            color: #4887f3;
+            font-weight: bold;
+            border: 2px solid #4887f3;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            width: 100%;
+        }
+
+        .login-redirect a:hover {
+            color: white;
+            background-color: #356ac9;
+            border-color: #356ac9;
+        }
+
+        @media (max-width: 768px) {
+            .form-sections {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <u> <h1>Drug Supplier Registration</h1></u>
+
+        <form id="myForm" onsubmit="return validateForm()" action="logS.php" method="post">
+            <div class="form-sections">
+                <!-- Personal Details Section -->
+                <div class="personal-details">
+                    <h2>Personal Details</h2>
+                    
+                  
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="Fname" required>
+                    
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="Lname" required>
+                </div>
+                
+                <!-- Company Details Section -->
+                <div class="company-details">
+                    <h2>Company Details</h2>
+                    
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" name="Company_name" required>
+                    
+                    <label for="address">Address</label>
+                    <textarea id="address" name="Address" rows="3" required></textarea>
+                    
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="Email_Address" required>
+                    
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="Password" required>
+                </div>
+            </div>
+            
+            <button type="submit">Register</button>
+            
+            <div class="login-redirect">
+                <p>Already registered?</p>
+                <a href="LOgs1.html">Log in here</a>
+            </div>
+        </form>
+        
+    </div>
+
+</body>
+</html>

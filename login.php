@@ -1,0 +1,64 @@
+<?php
+session_start();
+include "log1.php"; // Database connection
+
+// Retrieve login form data
+$email = trim($_POST['email']);
+$password = $_POST['password'];
+
+// Validate input
+if (empty($email) || empty($password)) {
+    echo "Please fill in all fields.";
+    exit();
+}
+
+try {
+    // SQL query to fetch user details based on the provided email
+    $sql = "SELECT PatientId, name, password FROM patientSign WHERE email = ?";
+    $stmt = sqlsrv_prepare($conn, $sql, array($email));
+
+    if (!$stmt) {
+        throw new Exception("Failed to prepare SQL statement: " . print_r(sqlsrv_errors(), true));
+    }
+
+    // Execute the statement
+    if (sqlsrv_execute($stmt)) {
+        // Check if a matching user is found
+        if (sqlsrv_has_rows($stmt)) {
+            $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+            // Manually compare the entered password with the database password
+            if ($password === $row['password']) {
+                // Successful login
+                session_regenerate_id(true); // Secure the session
+
+                // Store user details in the session
+                $_SESSION['user_id'] = $row['PatientId']; // Patient ID
+                $_SESSION['name'] = $row['name'];         // Name
+
+                // Redirect to the dashboard
+                header("Location: PatientD.php");
+                exit();
+            } else {
+                // Incorrect password
+                echo "Invalid email or password!";
+            }
+        } else {
+            // Email not found
+            echo "Invalid email or password!";
+        }
+    } else {
+        throw new Exception("Failed to execute SQL statement: " . print_r(sqlsrv_errors(), true));
+    }
+} catch (Exception $e) {
+    // Log the error for debugging
+    error_log($e->getMessage());
+    echo "An error occurred. Please try again later.";
+}
+
+// Close the statement and connection
+if (isset($stmt)) {
+    sqlsrv_free_stmt($stmt);
+}
+sqlsrv_close($conn);
+?>

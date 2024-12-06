@@ -1,0 +1,56 @@
+fieldset {
+    width: 40%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #B0D4D4;
+    border-radius: 35px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    height: 450px;
+    position: relative; /* Change from absolute to relative for better layout control */
+}
+body{
+    color: #dc3545;
+}
+
+input[type="text"], input[type="date"], input[type="time"] {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 1%;
+    margin-bottom: 15px; /* Add space between inputs */
+}
+
+input[type="submit"], input[type="reset"] {
+    width: 35%;
+    padding: 10px; /* Increase padding for better clickability */
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-right: 4%;
+}
+
+input[type="reset"] {
+    background-color: #dc3545;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+    opacity: 0.8; /* Adds transparency effect when hovered */
+}
+
+/* Image container styles */
+.container {
+    position: relative;
+    width: fit-content;
+    max-width: 100%; /* Ensures responsiveness */
+}
+
+.appointment-image {
+    width: 100%; /* Make the image width match the container */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    z-index: 1; /* Image stays behind the fieldset */
+}
