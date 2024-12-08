@@ -29,7 +29,7 @@ $stmt = sqlsrv_prepare($conn, $sql, $params);
 
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
-}
+} 
 
 // Execute the query
 if (sqlsrv_execute($stmt)) {

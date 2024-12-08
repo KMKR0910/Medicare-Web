@@ -7,7 +7,7 @@ $dbname = "Diploma Final Project DB1";
 $conn = sqlsrv_connect($servername, array("Database" => $dbname));
 
 if ($conn === false) {
-    die(print_r(sqlsrv_errors(), true));
-} 
+    die("ERROR: Could not connect. " . print_r(sqlsrv_errors(), true));
+}
  
 ?>

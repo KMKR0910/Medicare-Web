@@ -39,19 +39,18 @@
         <div class="container">
         <f<fieldset>
             <p class="detail">Book your Appointment</p>
-            <form name="myform" onsubmit="return ValidateForm()" method="post" action="">
+            <form name="myform" onsubmit="return ValidateForm()" method="post" action="appoinmentCheck.php">
                 Patient Name: <input type="text" name="name"><br><br>
                 Contact Info: <input type="text" name="contact"><br><br>
                 Date: <input type="date" name="date"><br><br>
                 <input type="submit" value="Check" name="Check"><br><br>
         
-                <!-- Display the appointment details -->
-                <label>Appointment Number:</label>
-                <input type="text" name="appointment_number" value="<?php echo htmlspecialchars($appointmentNumber); ?>" readonly><br><br>
-                <label>Start Time:</label>
-                <input type="text" name="start_time" value="<?php echo htmlspecialchars($startTime); ?>" readonly><br><br>
-                <input type="reset" value="Cancel" name="cancel"><br>
-
+                 <!-- Display the appointment details -->
+        <label>Appointment Number:</label>
+        <input type="text" name="appointment_number" value="<?php echo htmlspecialchars($appointmentNumber); ?>" readonly><br><br>
+        <label>Start Time:</label>
+        <input type="text" name="start_time" value="<?php echo htmlspecialchars($startTime); ?>" readonly><br><br>
+        <input type="reset" value="Cancel" name="cancel"><br>
             <!--Time<input type="time" name="time"><br><br>
             <input type="submit" value="Book" name="book"><br><br>
             <input type="reset" value="Cancel" name="cancel"><br>-->

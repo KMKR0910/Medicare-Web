@@ -131,7 +131,7 @@ if (isset($_SESSION['name'])) {
                 $user_id = $_SESSION['user_id'];
 
                 // Prepare the SQL query to fetch user details from MS SQL
-                $query = "SELECT [PatientID], [name], [address], [DOB], [gender], [Cno], [email], [password] FROM [dip1].[dbo].[patientSign] WHERE [PatientID] = ?";
+                $query = "SELECT [Patient ID], [Name], [Address], [DOB], [Gender], [Contact Number], [Email], [Password] FROM [Diploma Final Project DB1].[dbo].[tbl_patient_info] WHERE [Patient ID] = ?";
                 $stmt = sqlsrv_query($conn, $query, array($user_id));
 
                 // Check if the query was successful
@@ -142,14 +142,14 @@ if (isset($_SESSION['name'])) {
                 // Fetch the result
                 if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                     $user = [
-                        'PatientID' => $row['PatientID'],
-                        'name' => $row['name'],
-                        'address' => $row['address'],
+                        'PatientID' => $row['Patient ID'],
+                        'name' => $row['Name'],
+                        'address' => $row['Address'],
                         'DOB' => $row['DOB'],
-                        'gender' => $row['gender'],
-                        'Cno' => $row['Cno'],
-                        'email' => $row['email'],
-                        'password' => $row['password'],
+                        'gender' => $row['Gender'],
+                        'Cno' => $row['Contact Number'],
+                        'email' => $row['Email'],
+                        'password' => $row['Password'],
                     ];
                 } else {
                     echo "User not found.";

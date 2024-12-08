@@ -45,7 +45,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href=".php">
                         <i class="fas fa-file-prescription"></i>
                         <span>Prescription</span>
                     </a>
