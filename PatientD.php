@@ -33,7 +33,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="profile12.php">
+                    <a href="profilePatient.php">
                         <i class="fas fa-user-alt"></i>
                         <span>Profile</span>
                     </a>
@@ -45,7 +45,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href=".php">
+                    <a href="prescription.php">
                         <i class="fas fa-file-prescription"></i>
                         <span>Prescription</span>
                     </a>
@@ -57,7 +57,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href="diagnose.php">
                         <i class="fas fa-history"></i>
                         <span>Diagnosis History</span>
                     </a>
@@ -86,7 +86,7 @@ if (isset($_SESSION['name'])) {
                 <div class="booking">
                     <h3>Book Your Appointment!</h3>
                     <img src="doc2.png" class="app1" alt="Appointment">
-                    <h3><a href="book21.html" class="b11">Book Appointment</a></h3>
+                    <h3><a href="bookAppoinment.php" class="b11">Book Appointment</a></h3>
                 </div>
             </fieldset>
 
@@ -95,7 +95,7 @@ if (isset($_SESSION['name'])) {
                 <div class="booking2">
                     <h3>Edit Your Appointment!</h3>
                     <img src="cal.jpg" class="app1" alt="Appointment">
-                    <h3><a href="dashboardP3.php" class="b11">Edit Appointment</a></h3>
+                    <h3><a href="editAppoinment.php" class="b11">Edit Appointment</a></h3>
                 </div>
             </fieldset>
 

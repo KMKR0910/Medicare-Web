@@ -32,6 +32,15 @@ if (isset($_SESSION['name'])) {
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+        .profile-container2 {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
         .profile-table {
             width: 100%;
             border-collapse: collapse;
@@ -77,7 +86,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="Prescript.php">
+                    <a href="prescripton.php">
                         <i class="fas fa-file-prescription"></i>
                         <span>Prescription</span>
                     </a>
@@ -89,7 +98,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href="diagnose.php">
                         <i class="fas fa-history"></i>
                         <span>Diagnose history</span>
                     </a>
@@ -122,62 +131,15 @@ if (isset($_SESSION['name'])) {
                 <label for="datePicker">Select Date:</label>
                 <input type="date" id="datePicker" name="date" value="<?php echo date('Y-m-d'); ?>">
 
-                <?php
-                // Include database connection file
-                include "log1.php"; // Update with your MS SQL connection details
-
-                // Check if the user is logged in
-                if (isset($_SESSION['user_id'])) {
-                    $user_id = $_SESSION['user_id'];
-
-                    // Get the selected date from the date picker
-                    if (isset($_POST['date'])) {
-                        $selectedDate = $_POST['date'];
-                    } else {
-                        $selectedDate = date('Y-m-d'); // Default to today's date
-                    }
-
-                    // SQL query to get prescriptions for the selected date and patient ID
-                    $query = "SELECT [PrescriptionNumber], [Medicine], [Dosage], [Duration], [date] 
-                              FROM [tbl_prescript]
-                              WHERE [date] = ? AND [patientid] = ?";
-                    $stmt = sqlsrv_query($conn, $query, array($selectedDate, $user_id));
-
-                    if ($stmt === false) {
-                        die('Error executing query: ' . print_r(sqlsrv_errors(), true));
-                    }
-
-                    // Display prescriptions
-                    echo '<table class="profile-table">';
-                    echo '<tr><th>Prescription Number</th><th>Medicine</th><th>Dosage</th><th>Duration</th><th>Date</th></tr>';
-
-                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                        echo '<tr>';
-                        echo '<td>' . htmlspecialchars($row['PrescriptionNumber']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['Medicine']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['Dosage']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['Duration']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['date']->format('Y-m-d')) . '</td>';
-                        echo '</tr>';
-                    }
-
-                    echo '</table>';
-
-                    // Free the statement
-                    sqlsrv_free_stmt($stmt);
-                } else {
-                    // If user is not logged in, redirect to login page
-                    header("Location: SuppLog.php");
-                    exit();
-                }
-
-                // Close the database connection
-                sqlsrv_close($conn);
-                ?>
+            
             </div>
         </div>
+        <div class="profile-container2">
+        <!-- Prescription data will be displayed here -->
+    </div>
     </div>
 
+    
     <script>
         // JavaScript to handle date picker change
         document.getElementById("datePicker").addEventListener("change", function() {
@@ -185,13 +147,17 @@ if (isset($_SESSION['name'])) {
             let formData = new FormData();
             formData.append('date', selectedDate);
 
-            fetch('your_php_file.php', {
+            fetch('loadPrescription.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
-                document.querySelector('.profile-container').innerHTML = data;
+                // Update only the prescription part of the page
+                document.querySelector('.profile-container2').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
         });
     </script>

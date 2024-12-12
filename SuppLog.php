@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['Password'];
 
     // Prepare the SELECT query to check login credentials
-    $sql = "SELECT Supplier_ID, Fname FROM DrugSupplier WHERE Email_Address = ? AND Password = ?";
+    $sql = "SELECT [Supplier_ID], [Supplier_Name] FROM [tbl_drug_supplier] WHERE [Email] = ? AND [Password] = ?";
     $params = array($email, $password);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if a matching record is found
     if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         // Save supplier details to the session
-        $_SESSION['Fname'] = $row['Fname'];
+        $_SESSION['Fname'] = $row['Supplier_Name'];
         $_SESSION['Supplier_ID'] = $row['Supplier_ID'];
 
         // Redirect to the relevant dashboard

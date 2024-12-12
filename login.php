@@ -15,7 +15,7 @@ if (empty($email) || empty($password)) {
 
 try {
     // SQL query to fetch user details based on the provided email
-    $sql = "SELECT * FROM [tbl_patient_info] WHERE [Contact Number] = ?";
+    $sql = "SELECT * FROM [tbl_patient_info] WHERE [Email] = ?";
     $stmt = sqlsrv_prepare($conn, $sql, array($email));
 
     if (!$stmt) {
@@ -46,7 +46,7 @@ try {
             }
         } else {
             // Email not found
-            echo "Invalid Contact Number or Password!";
+            echo "Invalid Email or Password!";
         }
     } else {
         throw new Exception("Failed to execute SQL statement: " . print_r(sqlsrv_errors(), true));
