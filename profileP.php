@@ -9,27 +9,73 @@ if (isset($_SESSION['Supplier_ID'])) {
     header("Location: SuppLog.php");
     exit();
 }
-
+?>
+<?php
 // Include the database connection file
 include "log1.php"; // Ensure this file establishes a connection to your MS SQL Server
 
-// Fetch the supplier data from the database
-$sql = "SELECT Supplier_ID, Fname, Lname, Company_name, Address, Email_Address FROM DrugSupplier WHERE Supplier_ID = ?";
+// Handle delete request
+if (isset($_POST['delete'])) {
+    $deleteSQL = "DELETE FROM [dbo.[tbl_drug_supplier] WHERE [Supplier_ID] = ?";
+    $deleteStmt = sqlsrv_query($conn, $deleteSQL, [$supplierID]);
+
+    if ($deleteStmt) {
+        header("Location: patient_list.php"); // Redirect to a list page after deletion
+        exit();
+    } else {
+        $message = "Error deleting profile: " . print_r(sqlsrv_errors(), true);
+    }
+}
+
+// Handle form submission to update data
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $supplierName = $_POST['Sname'];
+        $companyName = $_POST['Cname'];
+        $companyAddress = $_POST['address'];
+        $email = $_POST['email'];
+        $contact = $_POST['contact'];
+
+        $updateSql = "UPDATE [tbl_drug_supplier] 
+        SET [Supplier_Name] = ?, [Company_Name] = ?, [Company_Address] = ?, [Email] = ? ,[Contact_Number] = ?
+        WHERE [Supplier_ID] = ?";
+$updateParams = array($supplierName, $companyName, $companyAddress, $email,$contact, $supplierID);
+
+$updateStmt = sqlsrv_query($conn, $updateSql, $updateParams);
+    if ($updateStmt) {
+        $message = "Profile updated successfully!";
+    } else {
+        $message = "Error updating profile: " . print_r(sqlsrv_errors(), true);
+    }
+}
+
+// Fetch patient details
+$sql = "SELECT [Supplier_ID], [Company_Name], [Supplier_Name], [Company_Address], [Contact_Number], [Email] FROM [tbl_drug_supplier] WHERE [Supplier_ID] = ?";
 $params = array($supplierID);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
-if ($stmt === false) {
-    echo "Error fetching data from database.";
-    exit();
+if ($stmt === false || sqlsrv_fetch($stmt) === false) {
+    die("Error retrieving data: " . print_r(sqlsrv_errors(), true));
 }
 
-// Fetch the supplier's data
-$supplierData = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+$supplier = [
+    'id' => sqlsrv_get_field($stmt, 0),
+    'Cname' => sqlsrv_get_field($stmt, 1),
+    'Sname' => sqlsrv_get_field($stmt, 2),
+    'address' => sqlsrv_get_field($stmt, 3),
+    
+    'contact' => sqlsrv_get_field($stmt, 4),
+    'email' => sqlsrv_get_field($stmt, 5),
+    
+];
 
-// Close the statement and database connection
-sqlsrv_free_stmt($stmt);
-sqlsrv_close($conn);
+
+
+
+
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,26 +121,27 @@ sqlsrv_close($conn);
             font-size: 1.2rem;
             margin-bottom: 20px;
         }
-
-        table {
+        .profile-info label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .profile-info p {
+            margin: 0 0 15px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .profile-info input,
+        .profile-info select {
             width: 100%;
-            margin-bottom: 20px;
-            border-collapse: collapse;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
-        table th, table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #f4f4f4;
-        }
-
-        table td {
-            background-color: #fafafa;
-        }
+      
 
         .profile-container img {
             width: 150px;
@@ -115,6 +162,34 @@ sqlsrv_close($conn);
 
         .download-btn:hover {
             background-color: #004d40;
+        }
+
+        .actions {
+            text-align: center;
+        }
+        .actions button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        .save-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .cancel-btn {
+            background-color: #6c757d;
+            color: #fff;
+        }
+        .message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -155,45 +230,73 @@ sqlsrv_close($conn);
 
     <div class="main--content">
         <div class="profile-container">
-            <h1>Welcome, <?php echo htmlspecialchars($supplierData['Fname']); ?>!</h1>
+
+            <h1>Welcome, <?php echo htmlspecialchars($supplier['Sname']); ?>!</h1>
             <h3>Your Profile Information</h3>
             <img src="s1.jpg" alt="User Image">
-            <table>
-                <tr>
-                    <th>Supplier ID</th>
-                    <td><?php echo htmlspecialchars($supplierData['Supplier_ID']); ?></td>
-                </tr>
-                <tr>
-                    <th>First Name</th>
-                    <td><?php echo htmlspecialchars($supplierData['Fname']); ?></td>
-                </tr>
-                <tr>
-                    <th>Last Name</th>
-                    <td><?php echo htmlspecialchars($supplierData['Lname']); ?></td>
-                </tr>
-                <tr>
-                    <th>Company Name</th>
-                    <td><?php echo htmlspecialchars($supplierData['Company_name']); ?></td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td><?php echo htmlspecialchars($supplierData['Address']); ?></td>
-                </tr>
-                <tr>
-                    <th>Email Address</th>
-                    <td><?php echo htmlspecialchars($supplierData['Email_Address']); ?></td>
-                </tr>
-            </table>
-            <form method="POST" action="downloadProfile.php">
+            </div>
+            <div class="profile-info">
+            <label>Company Name:</label>
+                <p id="view-name"><?= htmlspecialchars($supplier['Cname']) ?></p>
+                <input type="text" name="name" id="edit-name" value="<?= htmlspecialchars($supplier['Cname']) ?>" style="display: none;">
+
+                <label>Email:</label>
+                <p id="view-email"><?= htmlspecialchars($supplier['email']) ?></p>
+                <input type="email" name="email" id="edit-email" value="<?= htmlspecialchars($supplier['email']) ?>" style="display: none;">
+
+                <label>Contact Number:</label>
+                <p id="view-contact"><?= htmlspecialchars((string)$supplier['contact'] ?? '') ?></p>
+                <input type="text" name="contact" id="edit-contact" value="<?= htmlspecialchars((string)$supplier['contact'] ?? '') ?>" style="display: none;">
+
+                
+                <label>Supplier Name:</label>
+                <p id="view-sname"><?= htmlspecialchars($supplier['Sname']) ?></p>
+                <input type="text" name="sname" id="edit-sname" value="<?= htmlspecialchars($supplier['Sname']) ?>" style="display: none;">
+                
+
+                
+            </div>
+          </div>
+          <div class="actions">
+                <button type="button" class="edit-btn" id="editButton">Edit Profile</button>
+
+                <button type="submit" class="save-btn" id="saveButton" style="display: none;">Save Changes</button>
+                <button type="button" class="cancel-btn" id="cancelButton" style="display: none;">Cancel</button>
+                 <button type="submit" name="delete" class="delete-btn" onclick="return confirm('Are you sure you want to delete this profile?');">Delete Profile</button>
+            </div>
+          <form method="POST" action="downloadProfile.php">
                 <input type="hidden" name="Supplier_ID" value="<?php echo htmlspecialchars($supplierData['Supplier_ID']); ?>">
-                <input type="hidden" name="Fname" value="<?php echo htmlspecialchars($supplierData['Fname']); ?>">
-                <input type="hidden" name="Lname" value="<?php echo htmlspecialchars($supplierData['Lname']); ?>">
-                <input type="hidden" name="Company_name" value="<?php echo htmlspecialchars($supplierData['Company_name']); ?>">
-                <input type="hidden" name="Address" value="<?php echo htmlspecialchars($supplierData['Address']); ?>">
-                <input type="hidden" name="Email_Address" value="<?php echo htmlspecialchars($supplierData['Email_Address']); ?>">
+                <input type="hidden" name="Fname" value="<?php echo htmlspecialchars($supplierData['Supplier_Name']); ?>">
+              
+                <input type="hidden" name="Company_name" value="<?php echo htmlspecialchars($supplierData['Company_Name']); ?>">
+                <input type="hidden" name="Address" value="<?php echo htmlspecialchars($supplierData['Company_Address']); ?>">
+                <input type="hidden" name="Email_Address" value="<?php echo htmlspecialchars($supplierData['Email']); ?>">
                 <button type="submit" class="download-btn">Download Profile</button>
             </form>
         </div>
     </div>
+    <script>
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const viewElements = document.querySelectorAll('p[id^="view-"]');
+        const editElements = document.querySelectorAll('input, select');
+
+        editButton.addEventListener('click', () => {
+            viewElements.forEach(el => el.style.display = 'none');
+            editElements.forEach(el => el.style.display = 'block');
+            editButton.style.display = 'none';
+            saveButton.style.display = 'inline-block';
+            cancelButton.style.display = 'inline-block';
+        });
+
+        cancelButton.addEventListener('click', () => {
+            viewElements.forEach(el => el.style.display = 'block');
+            editElements.forEach(el => el.style.display = 'none');
+            editButton.style.display = 'inline-block';
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+        });
+    </script>
 </body>
 </html>

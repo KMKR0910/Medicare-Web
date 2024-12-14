@@ -66,9 +66,9 @@ if (isset($_SESSION['Fname'])) {
             <div class="fieldset1">
                 <fieldset class="b1">
                     <div class="booking">
-                        <h3>Create new drug order price list</h3>
+                        <h3>Drug Orders</h3>
                         <img src="dr1.jpg" class="app1" alt="Drug Order"><br>
-                        <h3><a href="list.html" class="b11">Create list</a></h3>
+                        <h3><a href="drugOrder.php" class="b11">Create list</a></h3>
                     </div>
                 </fieldset><br><br>
 

@@ -1,0 +1,41 @@
+fieldset {
+    text-align:justify;
+    color: #424242;
+    width: 35%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #E3F2FD;
+    border-radius: 35px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    height: 70%;
+    margin-left: 40px;
+    font-family: 'Lato', sans-serif;
+    position: relative; /* Change from absolute to relative for better layout control */
+}
+ p.detail
+{
+    font-family: 'Lato', sans-serif;
+    color:black;
+}
+
+input[type="submit"], input[type="reset"] 
+{
+    width: 35%;
+    padding: 10px; /* Increase padding for better clickability */
+    border: none;
+    background-color: #00796B;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-right: 4%;
+   align-items: center;
+}
+input[type="reset"] {
+    background-color: #FF7043;
+}
+input[type="submit"]:hover, input[type="reset"]:hover {
+    opacity: 0.8; /* Adds transparency effect when hovered */
+}
+ 

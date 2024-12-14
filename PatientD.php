@@ -51,7 +51,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href="labReport.php">
                         <i class="fas fa-vial"></i>
                         <span>Lab Results</span>
                     </a>
