@@ -9,12 +9,71 @@ if (isset($_SESSION['name'])) {
 }
 ?>
 
+<?php
+
+
+// Include database connection file
+include "log1.php"; // Update with your MS SQL connection details
+
+// Check if the user is logged in
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // Get the selected date from the date picker
+   
+
+    // SQL query to get prescriptions for the selected date and patient ID
+    $query = "SELECT [Date], [Payment Type],[Total_Cost]
+              FROM [tbl_Patient_Payment] WHERE
+              [patirnt_ID] = ?";
+    $stmt = sqlsrv_query($conn, $query, array($user_id));
+
+    if ($stmt === false) {
+        die('Error executing query: ' . print_r(sqlsrv_errors(), true));
+    }
+
+    // Display prescriptions in a table
+    $billDetails = '<table class="profile-table">';
+    $billDetails .= '<tr><th>Date</th><th>Description</th><th>Amount</th></tr>';
+
+   
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $billDetails .= '<tr>';
+        $billDetails .= '<td>' . htmlspecialchars(date_format($row['Date'], 'Y-m-d')) . '</td>';
+
+        $billDetails .= '<td>' . htmlspecialchars($row['Payment Type']) . '</td>';
+        $billDetails .= '<td>' .  htmlspecialchars($row['Total_Cost']) . '</td>';
+       
+        /*
+        // Nested table for additional details
+        $billDetails .= '<td>';
+        $billDetails .= '<table class="nested-table">';
+      
+        $billDetails .= '</table>';
+        $billDetails .= '<button type="submit" name="download"class="btn download-btn">Download</button>';
+        $billDetails .= '<button type="submit" name="print" class="btn print-btn">Print</button>';
+        $billDetails .= '</td>';
+        $billDetails .= '</tr>'; // Correct closing tag here*/
+    }
+
+    
+    // Free the statement and close the connection
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
+} else {
+    // If user is not logged in, redirect to login page
+    header("Location: SuppLog.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescription Data</title>
+    <title>Lab Report Data</title>
     <link rel="stylesheet" href="patientDashboard21.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
@@ -58,8 +117,53 @@ if (isset($_SESSION['name'])) {
             background-color: #f9f9f9;
         }
         .profile-table tr:hover {
+
             background-color: #f1f1f1;
         }
+
+        /* Message box styling */
+.message-box {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+/* Button styles */
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.download-btn {
+    background-color: #28a745; /* Green for Download */
+}
+
+.download-btn:hover {
+    background-color: #218838;
+}
+.print-btn {
+    background-color:rgb(59, 40, 167); /* Green for Download */
+}
+
+.print-btn:hover {
+    background-color:rgb(59, 40, 167);
+}
+
     </style>
 </head>
 <body>
@@ -94,7 +198,7 @@ if (isset($_SESSION['name'])) {
                 <li>
                     <a href="labReport.php">
                         <i class="fas fa-file-prescription"></i>
-                        <span>Lab results</span>
+                        <span>Lab Report</span>
                     </a>
                 </li>
                 <li>
@@ -125,48 +229,52 @@ if (isset($_SESSION['name'])) {
         <div class="header--wrapper">
             <div class="header--title">
                 <h1><?php echo htmlspecialchars($userName); ?>!</h1>
-                <h2>Prescription Dashboard</h2>
+                <h2>Payement History Dashboard</h2>
             </div>
         </div>
 
         <div class="fieldsets">
             <div class="profile-container">
-                <h1>Prescriptions</h1>
+                <h1>Payement History</h1>
 
-                <!-- Date Picker -->
-                <label for="datePicker">Select Date:</label>
-                <input type="date" id="datePicker" name="date" value="<?php echo date('Y-m-d'); ?>">
-
+               
             
             </div>
         </div>
         <div class="profile-container2">
-        <!-- Prescription data will be displayed here -->
+        <?php echo isset($billDetails) ? $billDetails : '<p>No reports available.</p>'; ?>
+
     </div>
     </div>
+
+   <!-- <script>
+    // Message display function
+function showMessage(message) {
+    const messageBox = document.createElement('div');
+    messageBox.className = 'message-box';
+    messageBox.innerText = message;
+    document.body.appendChild(messageBox);
+
+    // Remove message after 3 seconds
+    setTimeout(() => {
+        messageBox.remove();
+    }, 3000);
+}
+
+// Attach event listener to download buttons
+document.querySelectorAll('.download-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        showMessage('Downloaded Successfully!');
+    });
+});
+    document.querySelectorAll('.print-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        showMessage('Print Successfully!');
+    });
+});
 
     
-    <script>
-        // JavaScript to handle date picker change
-        document.getElementById("datePicker").addEventListener("change", function() {
-            let selectedDate = this.value;
-            let formData = new FormData();
-            formData.append('date', selectedDate);
-
-            fetch('loadPrescription.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Update only the prescription part of the page
-                document.querySelector('.profile-container2').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
-
+   
+</script>-->
 </body>
 </html>

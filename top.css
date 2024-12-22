@@ -66,6 +66,7 @@ img.slides {
    margin-right: 45%;
    color: black;
    font-family: 'Roboto', sans-serif;
+   text-align: left;
 }
 body {
     background: #a9c5e282;

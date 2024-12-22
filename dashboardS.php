@@ -34,13 +34,13 @@ if (isset($_SESSION['Fname'])) {
                         </a>
                     </li>
                     <li>
-                    <a href="Stat.php">
+                    <a href="drugOrder-1.php">
                             <i class="fas fa-chart-bar"></i>
-                            <span>Statistics</span>
+                            <span>Drug Orders</span>
                         </a>
                     </li>
                     <li class="logout">
-                        <a href="logoutP.php">
+                        <a href="homepg.html">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Log out</span>
                         </a>
@@ -52,13 +52,13 @@ if (isset($_SESSION['Fname'])) {
         <div class="main--content">
             <div class="header--wrapper">
                 <div class="header--title">
-                    <h1>Welcome, <?php echo htmlspecialchars($Fname); ?>!</h1>
-                    <h2>Dashboard</h2>
+                    <h1>Welcome, <?php echo htmlspecialchars($Fname); ?></h1>
+                    <h2>Drug Supplier Dashboard</h2>
                 </div>
                 <div class="user--info">
-                    <div class="search--box">
+                    <!--<div class="search--box">
                         <i class="fa-solid fa-search"></i>
-                    </div>
+                    </div>-->
                     <img src="s1.jpg" alt="User Image">
                 </div>
             </div>
@@ -66,27 +66,27 @@ if (isset($_SESSION['Fname'])) {
             <div class="fieldset1">
                 <fieldset class="b1">
                     <div class="booking">
-                        <h3>Drug Orders</h3>
+                        <h3></h3>
                         <img src="dr1.jpg" class="app1" alt="Drug Order"><br>
-                        <h3><a href="drugOrder.php" class="b11">Create list</a></h3>
+                        <h3><a href="drugOrder.php" class="b11">View Drug Orders</a></h3>
                     </div>
                 </fieldset><br><br>
 
                 <fieldset class="b2">
                     <div class="booking2">
-                        <h3>Edit your Drug list!</h3>
+                        <h3></h3>
                         <img src="dr2.jpg" class="app1" alt="Appointment"><br>
-                        <h3><a href="editP1.php" class="b11">Edit Appointment</a></h3>
+                        <h3><a href="editP1.php" class="b11">View Profile</a></h3>
                     </div>
                 </fieldset>
 
-                <fieldset class="b2">
+               <!-- <fieldset class="b2">
                     <div class="booking">
                         <h3>Delete your Drug order!</h3>
                         <img src="dr3.jpg" class="app1" alt="Appointment"><br>
                         <h3><a href="deleteS.php" class="b11">Delete Appointment</a></h3>
                     </div>
-                </fieldset>
+                </fieldset>-->
             </div>
         </div>
     </body>

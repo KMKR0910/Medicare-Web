@@ -20,6 +20,7 @@ if (isset($_SESSION['name'])) {
         .active {
             background-color: #A4C8E1; /* Highlight for active menu item */
         }
+       
     </style>
 </head>
 <body>
@@ -39,7 +40,7 @@ if (isset($_SESSION['name'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href="bookAppoinment.php">
                         <i class="fas fa-calendar-check"></i>
                         <span>Appointments</span>
                     </a>
@@ -59,11 +60,17 @@ if (isset($_SESSION['name'])) {
                 <li>
                     <a href="diagnose.php">
                         <i class="fas fa-history"></i>
-                        <span>Diagnosis History</span>
+                        <span>Diagnose History</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="paymentPatient.php">
+                        <i class="fas fa-history"></i>
+                        <span>Payment History</span>
                     </a>
                 </li>
                 <li class="logout">
-                    <a href="HomePG.html">
+                    <a href="homepg.html">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Log Out</span>
                     </a>
@@ -75,8 +82,8 @@ if (isset($_SESSION['name'])) {
     <div class="main--content">
         <div class="header--wrapper">
             <div class="header--title">
-                <h1>Welcome, <?php echo htmlspecialchars($userName); ?>!</h1> <!-- Use htmlspecialchars for security -->
-                <h2>Dashboard</h2>
+                <h1>Welcome, <?php echo htmlspecialchars($userName); ?></h1> <!-- Use htmlspecialchars for security -->
+                <h2>Patient Dashboard</h2>
             </div>
         </div>
 
@@ -84,74 +91,78 @@ if (isset($_SESSION['name'])) {
             <!-- Appointment Booking Section -->
             <fieldset class="b1">
                 <div class="booking">
-                    <h3>Book Your Appointment!</h3>
+                    <h3>                         </h3>
                     <img src="doc2.png" class="app1" alt="Appointment">
-                    <h3><a href="bookAppoinment.php" class="b11">Book Appointment</a></h3>
+                    <h3><a href="bookAppoinment.php" class="b11">Book a Appointment</a></h3>
                 </div>
             </fieldset>
 
             <!-- Edit Appointment Section -->
             <fieldset class="b2">
                 <div class="booking2">
-                    <h3>Edit Your Appointment!</h3>
+                    <h3></h3>
                     <img src="cal.jpg" class="app1" alt="Appointment">
-                    <h3><a href="editAppoinment.php" class="b11">Edit Appointment</a></h3>
+                    <h3><a href="editAppoinment.php" class="b11">View Appointment</a></h3>
                 </div>
             </fieldset>
 
             <!-- Delete Appointment Section -->
             <fieldset class="b2">
                 <div class="booking">
-                    <h3>Delete Your Appointment!</h3>
+                    <h3></h3>
                     <img src="cal2.jpg" class="app1" alt="Appointment">
-                    <h3><a href="delete1.php" class="b11">Delete Appointment</a></h3>
+                    <h3><a href="labReport.php" class="b11">View Laboratory Tests</a></h3>
                 </div>
             </fieldset>
 
         </div>
 
-        <!-- Appointment Information Section -->
-        <fieldset class="confirm">
-            <h1 class="head"><u>Appointment Information</u></h1>
-            <!-- Message and details will be displayed here -->
-            <div id="message"></div>
-            <div id="details"></div>
-        </fieldset>
+        <!--<fieldset class="confirm">
+    <h1 class="head"><u>Patient Information</u></h1>
+    Message and details will be displayed here 
+    <div id="patient-message"></div>
+    <div id="patient-details"></div>
+    <div id="error-message" style="color: red;"></div>
+</fieldset>-->
 
     </div>
 
     <!-- JavaScript for handling appointment details -->
     <script>
         // Function to get query parameters from URL
-        function getQueryParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+       // Function to get query parameters from URL
+function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
 
-        // Get appointment details from query parameters
-        const apID = getQueryParameter('apID'); 
-        const patientName = getQueryParameter('name');
-        const contact = getQueryParameter('contact');
-        const date = getQueryParameter('date');
-        const time = getQueryParameter('time');
-
-        if (apID) {
-            document.getElementById('message').textContent = "Your appointment number is: " + apID;
-        }
-
-        if (patientName && contact && date && time) {
-            document.getElementById('details').innerHTML = `
-                <p><strong>Patient Name:</strong> ${patientName}</p>
-                <p><strong>Contact Number:</strong> ${contact}</p>
-                <p><strong>Appointment Date:</strong> ${date}</p>
-                <p><strong>Appointment Time:</strong> ${time}</p>`;
-        }
-
-        // Handle error message from query parameters
-        const errorMessage = getQueryParameter('error_message');
+const patientID = <?php echo json_encode( $_SESSION['name']); ?>;
+fetch(`getPatientDetails.php?patient_id=${patientID}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById('patient-message').textContent = "Patient ID: " + data.patient_id;
+                    document.getElementById('patient-details').innerHTML = `
+                        <p><strong>Name:</strong> ${data.name}</p>
+                        <p><strong>Contact Number:</strong> ${data.contact}</p>
+                        <p><strong>Address:</strong> ${data.address}</p>
+                        <p><strong>Date of Birth:</strong> ${data.dob}</p>
+                        <p><strong>Email:</strong> ${data.email}</p>
+                        <p><strong>Gender:</strong> ${data.gender}</p>`;
+                } else {
+                    document.getElementById('patient-message').textContent = "Patient information not available.";
+                }
+            })
+            .catch(error => {
+                document.getElementById('error-message').textContent = "Error fetching patient information.";
+                console.error('Error:', error);
+            });
+            const errorMessage = getQueryParameter('error_message');
         if (errorMessage) {
-            document.getElementById('message').textContent = errorMessage;
+            document.getElementById('error-message').textContent = errorMessage;
         }
+    </script>
+
     </script>
 
 </body>

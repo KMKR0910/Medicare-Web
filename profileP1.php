@@ -31,14 +31,14 @@ if (isset($_POST['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $supplierName = $_POST['Sname'];
         $companyName = $_POST['Cname'];
-      
+        $companyAddress = $_POST['address'];
         $email = $_POST['email'];
         $contact = $_POST['contact'];
 
         $updateSql = "UPDATE [tbl_drug_supplier] 
-        SET [Supplier_Name] = ?, [Company_Name] = ?, [Email] = ? ,[Contact_Number] = ?
+        SET [Supplier_Name] = ?, [Company_Name] = ?, [Company_Address] = ?, [Email] = ? ,[Contact_Number] = ?
         WHERE [Supplier_ID] = ?";
-$updateParams = array($supplierName, $companyName, $email,$contact, $supplierID);
+$updateParams = array($supplierName, $companyName, $companyAddress, $email,$contact, $supplierID);
 
 $updateStmt = sqlsrv_query($conn, $updateSql, $updateParams);
     if ($updateStmt) {
@@ -49,7 +49,7 @@ $updateStmt = sqlsrv_query($conn, $updateSql, $updateParams);
 }
 
 // Fetch patient details
-$sql = "SELECT [Supplier_ID], [Company_Name], [Supplier_Name], [Contact_Number], [Email] FROM [tbl_drug_supplier] WHERE [Supplier_ID] = ?";
+$sql = "SELECT [Supplier_ID], [Company_Name], [Supplier_Name], [Company_Address], [Contact_Number], [Email] FROM [tbl_drug_supplier] WHERE [Supplier_ID] = ?";
 $params = array($supplierID);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
@@ -61,10 +61,10 @@ $supplier = [
     'id' => sqlsrv_get_field($stmt, 0),
     'Cname' => sqlsrv_get_field($stmt, 1),
     'Sname' => sqlsrv_get_field($stmt, 2),
+    'address' => sqlsrv_get_field($stmt, 3),
     
-    
-    'contact' => sqlsrv_get_field($stmt, 3),
-    'email' => sqlsrv_get_field($stmt, 4),
+    'contact' => sqlsrv_get_field($stmt, 4),
+    'email' => sqlsrv_get_field($stmt, 5),
     
 ];
 
@@ -203,7 +203,7 @@ $supplier = [
     </style>
 </head>
 <body>
-
+<div class="sidebar">
 <div class="sidebar">
             <div class="logo">
                 <ul class="menu">
@@ -221,13 +221,13 @@ $supplier = [
                         </a>
                     </li>
                     <li>
-                    <a href="drugOrder-1.php">
+                    <a href="Stat.php">
                             <i class="fas fa-chart-bar"></i>
-                            <span>Drug Orders</span>
+                            <span>Statistics</span>
                         </a>
                     </li>
                     <li class="logout">
-                        <a href="homepg.html">
+                        <a href="logoutP.php">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Log out</span>
                         </a>
@@ -235,41 +235,37 @@ $supplier = [
                 </ul>
             </div>
         </div>
+    </div>
 
     <div class="main--content">
-        <class="profile-container">
+        <div class="profile-container">
 
             <h1>Welcome, <?php echo htmlspecialchars($supplier['Sname']); ?>!</h1>
             <h3>Your Profile Information</h3>
-
             <img src="s1.jpg" alt="User Image">
-            <?php if (isset($message)) echo "<p class='message'>$message</p>"; ?>
-            <form method="POST" id="profileForm">
-          
-            
-            <div class="profile-info">
-            <label>Company Name:</label>
-                <p id="view-name"><?= htmlspecialchars($supplier['Cname']) ?></p>
-                <input type="text" name="Cname" id="edit-name" value="<?= htmlspecialchars($supplier['Cname']) ?>" style="display: none;">
-
-                <label>Email:</label>
-                <p id="view-email"><?= htmlspecialchars($supplier['email']) ?></p>
-                <input type="email" name="email" id="edit-email" value="<?= htmlspecialchars($supplier['email']) ?>" style="display: none;">
-
-                <label>Contact Number:</label>
-                <p id="view-contact"><?= htmlspecialchars((string)$supplier['contact'] ?? '') ?></p>
-                <input type="text" name="contact" id="edit-contact" value="<?= htmlspecialchars((string)$supplier['contact'] ?? '') ?>" style="display: none;">
-
-                
-
-                
-                <label>Supplier Name:</label>
-                <p id="view-sname"><?= htmlspecialchars($supplier['Sname']) ?></p>
-                <input type="text" name="Sname" id="edit-sname" value="<?= htmlspecialchars($supplier['Sname']) ?>" style="display: none;">
-                
-
-               
             </div>
+
+            <form id="profileForm" method="POST">
+                <div class="profile-container2">
+                    <div class="profile-info">
+                        <label>Company Name:</label>
+                        <p id="view-name"><?= htmlspecialchars($supplier['Cname']) ?></p>
+                        <input type="text" name="name" id="edit-name" value="<?= htmlspecialchars($supplier['Cname']) ?>" style="display: none;">
+
+                        <label>Email:</label>
+                        <p id="view-email"><?= htmlspecialchars($supplier['email']) ?></p>
+                        <input type="email" name="email" id="edit-email" value="<?= htmlspecialchars($supplier['email']) ?>" style="display: none;">
+
+                        <label>Contact Number:</label>
+                        <p id="view-contact"><?= htmlspecialchars((string)$supplier['contact'] ?? '') ?></p>
+                        <input type="text" name="contact" id="edit-contact" value="<?= htmlspecialchars((string)$supplier['contact'] ?? '') ?>" style="display: none;">
+
+                        <label>Supplier Name:</label>
+                        <p id="view-sname"><?= htmlspecialchars($supplier['Sname']) ?></p>
+                        <input type="text" name="sname" id="edit-sname" value="<?= htmlspecialchars($supplier['Sname']) ?>" style="display: none;">
+                    </div>
+                </div>
+            </form>
         
 
           <div class="actions">
@@ -278,8 +274,8 @@ $supplier = [
                 <button type="submit" class="save-btn" id="saveButton" style="display: none;">Save Changes</button>
                 <button type="button" class="cancel-btn" id="cancelButton" style="display: none;">Cancel</button>
                  <button type="submit" name="delete" class="delete-btn" onclick="return confirm('Are you sure you want to delete this profile?');">Delete Profile</button>
-            </div>
-          <!--<form method="POST" action="downloadProfile.php">
+            </div></div>
+          <form method="POST" action="downloadProfile.php">
                 <input type="hidden" name="Supplier_ID" value="<?php echo htmlspecialchars($supplierData['Supplier_ID']); ?>">
                 <input type="hidden" name="Fname" value="<?php echo htmlspecialchars($supplierData['Supplier_Name']); ?>">
               
@@ -287,11 +283,9 @@ $supplier = [
                 <input type="hidden" name="Address" value="<?php echo htmlspecialchars($supplierData['Company_Address']); ?>">
                 <input type="hidden" name="Email_Address" value="<?php echo htmlspecialchars($supplierData['Email']); ?>">
                 <button type="submit" class="download-btn">Download Profile</button>
-            </form>-->
-    </>
-    </form>
+            </form>
         </div>
-   
+    </div>
     <script>
         const editButton = document.getElementById('editButton');
         const saveButton = document.getElementById('saveButton');
@@ -308,6 +302,16 @@ $supplier = [
         });
 
         cancelButton.addEventListener('click', () => {
+            viewElements.forEach(el => el.style.display = 'block');
+            editElements.forEach(el => el.style.display = 'none');
+            editButton.style.display = 'inline-block';
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+        });
+
+        saveButton.addEventListener('click', () => {
+            document.getElementById('profileForm').submit();
+
             viewElements.forEach(el => el.style.display = 'block');
             editElements.forEach(el => el.style.display = 'none');
             editButton.style.display = 'inline-block';

@@ -42,11 +42,13 @@ try {
                 exit();
             } else {
                 // Incorrect password
-                echo "Invalid Contact Number or Password!";
+                echo "<script>alert('Invalid email or password.');</script>";
+              
             }
         } else {
             // Email not found
-            echo "Invalid Email or Password!";
+            echo "<script>alert('Invalid email or password.');</script>";
+            
         }
     } else {
         throw new Exception("Failed to execute SQL statement: " . print_r(sqlsrv_errors(), true));

@@ -63,18 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmOrder'])) {
 
     $confirmationMessage = "Order confirmed successfully.";
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['orderShipped'])) {
-    $orderID = intval($_POST['orderID']); // Ensure it's an integer
-
-
-    $sql = "UPDATE [tbl_Drug_order] SET [Order_Status] = 'Order Shipped' WHERE [OrderID] = ?";
-    $params = [$orderID];
-    $stmt = sqlsrv_query($conn, $sql, $params);
-
-    if ($stmt === false) die(print_r(sqlsrv_errors(), true));
-
-    $confirmationMessage = "Order details updated succesfully.";
-}
 ?>
 
 <!DOCTYPE html>
@@ -130,26 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['orderShipped'])) {
             const orderID = document.getElementById("selectedOrderID").value;
             if (!totalCost || !orderID) {
                 alert("Please select an order and enter the total cost.");
+                event.preventDefault();
                 return;
             }
-            else
-
-            const form = document.getElementById("confirmForm");
-            form.submit();
-           
-        }
-        function orderShipped() {
-         
-            const orderID = document.getElementById("selectedOrderID").value;
-            if (!totalCost || !orderID) {
-                alert("Please select an order");
-                return;
-            }
-            else
-
-            const form = document.getElementById("orderShipped");
-            form.submit();
-           
         }
     </script>
 </head>
@@ -172,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['orderShipped'])) {
                         </a>
                     </li>
                     <li>
-                    <a href="drugOrder.php">
+                    <a href="drugOrder-1.php">
                             <i class="fas fa-chart-bar"></i>
                             <span>Drug Orders</span>
                         </a>
@@ -260,11 +231,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['orderShipped'])) {
         </div>
         <input type="hidden" id="selectedOrderID" name="orderID" value="<?= isset($_GET['orderID']) ? $_GET['orderID'] : '' ?>">
         <input type="submit" name="confirmOrder" value="Confirm Order" onclick="confirmOrder()"></input>
-    </form>
-    <form id="orderShipped" method="POST" action="drugOrder.php">
-       
-        <input type="hidden" id="selectedOrderID" name="orderID" value="<?= isset($_GET['orderID']) ? $_GET['orderID'] : '' ?>">
-        <input type="submit" name="orderShipped" value="Order Shipped" onclick="orderShipped()"></input>
     </form>
 </div>
     <?php if (isset($confirmationMessage)): ?>

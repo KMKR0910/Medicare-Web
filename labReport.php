@@ -177,19 +177,19 @@ if (isset($_SESSION['user_id'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="profile12.php">
+                    <a href="profilePatient.php">
                         <i class="fas fa-user-alt"></i>
                         <span>Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href="bookAppoinment.php">
                         <i class="fas fa-calendar-check"></i>
                         <span>Appointments</span>
                     </a>
                 </li>
                 <li>
-                    <a href="prescripton.php">
+                    <a href="prescription.php">
                         <i class="fas fa-file-prescription"></i>
                         <span>Prescription</span>
                     </a>
@@ -206,8 +206,14 @@ if (isset($_SESSION['user_id'])) {
                         <span>Diagnose history</span>
                     </a>
                 </li>
+                <li>
+                    <a href="paymentPatient.php">
+                        <i class="fas fa-history"></i>
+                        <span>Payment History</span>
+                    </a>
+                </li>
                 <li class="logout">
-                    <a href="1">
+                    <a href="homepg.html">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Log Out</span>
                     </a>

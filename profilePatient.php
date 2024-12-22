@@ -25,7 +25,7 @@ if (isset($_POST['delete'])) {
     $deleteStmt = sqlsrv_query($conn, $deleteSQL, [$user_id]);
 
     if ($deleteStmt) {
-        header("Location: patient_list.php"); // Redirect to a list page after deletion
+        header("Location: homepg.html"); // Redirect to a list page after deletion
         exit();
     } else {
         $message = "Error deleting profile: " . print_r(sqlsrv_errors(), true);
@@ -152,7 +152,7 @@ $patient = [
     </style>
 </head>
 <body>
-<div class="sidebar">
+    <div class="sidebar">
         <div class="logo">
             <ul class="menu">
                 <li class="active">
@@ -162,37 +162,43 @@ $patient = [
                     </a>
                 </li>
                 <li>
-                    <a href="profile12.php">
+                    <a href="profilePatient.php">
                         <i class="fas fa-user-alt"></i>
                         <span>Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href="bookAppoinment.php">
                         <i class="fas fa-calendar-check"></i>
                         <span>Appointments</span>
                     </a>
                 </li>
                 <li>
-                    <a href="Prescript.php">
+                    <a href="prescription.php">
                         <i class="fas fa-file-prescription"></i>
                         <span>Prescription</span>
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
-                        <i class="fas fa-file-prescription"></i>
-                        <span>Lab results</span>
+                    <a href="labReport.php">
+                        <i class="fas fa-vial"></i>
+                        <span>Lab Results</span>
                     </a>
                 </li>
                 <li>
-                    <a href="PatientD3.php">
+                    <a href="diagnose.php">
                         <i class="fas fa-history"></i>
-                        <span>Diagnose history</span>
+                        <span>Diagnose History</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="paymentPatient.php">
+                        <i class="fas fa-history"></i>
+                        <span>Payment History</span>
                     </a>
                 </li>
                 <li class="logout">
-                    <a href="1">
+                    <a href="homepg.html">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Log Out</span>
                     </a>
@@ -202,12 +208,12 @@ $patient = [
     </div>
     <div class="header--wrapper">
             <div class="header--title">
-                <h1><?php echo htmlspecialchars($userName); ?>!</h1>
+                <h1><?php echo htmlspecialchars($userName); ?></h1>
                 <h2>Dashboard</h2>
             </div></div>
 
     <div class="container">
-        <h1>Customer Profile</h1>
+        <h1>Profile Information</h1><br><br>
         <?php if (isset($message)) echo "<p class='message'>$message</p>"; ?>
         <form method="POST" id="profileForm">
             <div class="profile-info">

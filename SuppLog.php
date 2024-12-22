@@ -4,8 +4,8 @@ include "log1.php"; // Ensure this file sets up your MS SQL Server connection
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve form data
-    $email = $_POST['Email_Address'];
-    $password = $_POST['Password'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
     // Prepare the SELECT query to check login credentials
     $sql = "SELECT [Supplier_ID], [Supplier_Name] FROM [tbl_drug_supplier] WHERE [Email] = ? AND [Password] = ?";
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     } else {
         // Display an error message if login fails
-        echo "Invalid email or password. Please try again.";
+        echo "<script>alert('Invalid email or password.');</script>";
     }
 
     // Close the connection
