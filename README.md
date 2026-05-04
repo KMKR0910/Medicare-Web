@@ -71,11 +71,3 @@ It enables users to access key services such as **appointment booking, lab repor
 This project is for academic and demonstration purposes only.
 
 ---
-
-If you want next upgrade, I can also:
-
-* 🔥 Make both READMEs look like **industry-level portfolio projects**
-* 🔥 Write a **killer GitHub profile README**
-* 🔥 Or optimize your **LinkedIn project section to match this style**
-
-Just tell me 👍
