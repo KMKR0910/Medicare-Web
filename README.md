@@ -1,55 +1,81 @@
-Web Appication for Medicare+ - Medical Centre Management System
-Project Overview
 
-  The web application was designed to digitalize patient, supplier, and appointment operations
-  
-  It solves key problems of the previous manual system by allowing patients, drug suppliers, and external users to interact with the medical centre in a seamless, digital-first way.
+#  Medicare+ – Medical Centre Management System (Web Application)
 
-Features (Web App)
+> A web-based platform developed to digitalize and streamline patient, supplier, and appointment operations for a medical centre, enabling seamless interaction between external users and the healthcare system.
 
-Patient Portal
+![Platform](https://img.shields.io/badge/Platform-Web%20Application-0A66C2?style=flat-square\&logo=googlechrome)
+![Frontend](https://img.shields.io/badge/Frontend-HTML%20%2F%20CSS%20%2F%20JavaScript-F7DF1E?style=flat-square\&logo=html5)
+![Backend](https://img.shields.io/badge/Backend-PHP-777BB4?style=flat-square\&logo=php)
+![Database](https://img.shields.io/badge/Database-MS%20SQL%20Server-CC2927?style=flat-square\&logo=microsoftsqlserver)
+![Version Control](https://img.shields.io/badge/Version%20Control-Git-F05032?style=flat-square\&logo=git)
+
+---
+
+##  Overview
+
+The web application was developed to **replace manual interactions** in the medical centre by providing a digital platform for patients and drug suppliers.
+
+It enables users to access key services such as **appointment booking, lab report viewing, prescription requests, and supplier management** through a centralized online system.
+
+---
+
+##  Key Features
+
+###  Patient Portal
+
+* Online patient registration
+* Appointment booking with automatic number allocation
+* View lab test status and download reports
+* Access medical certificates
+
+---
+
+###  Supplier Portal
+
+* Drug supplier registration and profile management
+* Add and manage drug details (name, type, stock availability)
+* View and update orders from the medical centre
+
+---
+
+###  Public Services
+
+* View appointment availability
+* Enable digital communication with the medical centre
+
+---
+
+##  Technology Stack
+
+| Layer           | Technology            |
+| --------------- | --------------------- |
+| Frontend        | HTML, CSS, JavaScript |
+| Backend         | PHP                   |
+| Database        | MS SQL Server         |
+| Version Control | Git                   |
+
+---
 
 
-  1.Online patient registration
-  
-  2.Appointment booking & number allocation
-  
-  3.View lab test status & download reports
-  
-  4.Access medical certificates
 
-Supplier Portal
+##  Future Enhancements
 
-  1.Drug supplier registration & profile management
-  
-  2.Enter and manage drug details (name, type, stock availability)
-  
-  3.Check and update orders from the medical centre
+*  Online payment system for consultations and lab services
+*  Automated SMS/email appointment reminders
+*  Mobile application integration for patients
 
-Public Services
 
-  1.Access to appointment availability
-  
-  2.Digital communication with the centre
 
-Tech Stack
+## 📄 License
 
-  1.Frontend: HTML, CSS, JavaScript
-  
-  2.Backend: PHP
-  
-  3.Database: MS SQL Server
-  
-  4.Tools: Git
+This project is for academic and demonstration purposes only.
 
-Future Enhancements
+---
 
-  Online payments for consultation & lab services
-  
-  Automated SMS/email reminders for appointments
-  
-  Patient mobile app integration
+If you want next upgrade, I can also:
 
-This is Diploma (1st Year) Final Project Web Application 
+* 🔥 Make both READMEs look like **industry-level portfolio projects**
+* 🔥 Write a **killer GitHub profile README**
+* 🔥 Or optimize your **LinkedIn project section to match this style**
 
-My Contribution: 60% of the web 
+Just tell me 👍
