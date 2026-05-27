@@ -71,3 +71,8 @@ It enables users to access key services such as **appointment booking, lab repor
 This project is for academic and demonstration purposes only.
 
 ---
+
+##  Redesigned Version
+
+👉 The updated and improved version of this project is available here:  
+[Medicare+ (Redesigned Version)](https://github.com/KMKR0910/medicare-web-app)
